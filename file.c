@@ -4,7 +4,6 @@
 
 int main(int argc, char *argv[])
 {
-    // Check if filename argument is provided
     if (argc != 2)
     {
         printf("Usage: %s <filename>\n", argv[0]);
@@ -14,7 +13,6 @@ int main(int argc, char *argv[])
     FILE *ptr;
     char ch;
 
-    // Opening file provided as command line argument in reading mode
     ptr = fopen(argv[1], "r");
 
     if (NULL == ptr)
@@ -25,17 +23,14 @@ int main(int argc, char *argv[])
 
     printf("Content of the file %s:\n", argv[1]);
 
-    // Printing what is written in file character by character using loop
-    do
+    int lineNumber = 1;
+    char line[1024];
+    while (fgets(line, 1024, ptr) != NULL)
     {
-        ch = fgetc(ptr);
-        if (ch != EOF)
-        {
-            printf("%c", ch);
-        }
-    } while (ch != EOF);
+        printf("%4d | %s", lineNumber, line);
+        lineNumber++;
+    }
 
-    // Closing the file
     fclose(ptr);
     return 0;
 }
